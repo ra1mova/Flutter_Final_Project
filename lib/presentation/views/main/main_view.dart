@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '../../blocs/home/navbar_cubit.dart';
+import 'home/home_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _MainViewState extends State<MainView> {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: context.read<NavbarCubit>().controller,
                   children: <Widget>[
-                    Container(),
+                    const HomeView(),
                     Container(),
                     Container(),
                     Container(),
@@ -75,7 +76,7 @@ class _MainViewState extends State<MainView> {
                     items: const [
                       BottomNavigationBarItem(
                           icon: ImageIcon(
-                            AssetImage("assets/navbar_icons/home.png"),
+                            AssetImage("assets/images/home.png"),
                             color: Colors.white,
                             size: 26,
                           ),
@@ -88,7 +89,7 @@ class _MainViewState extends State<MainView> {
                           label: 'Home'),
                       BottomNavigationBarItem(
                           icon: ImageIcon(
-                            AssetImage("assets/navbar_icons/categories.png"),
+                            AssetImage("assets/images/categories.png"),
                             color: Colors.white,
                             size: 26,
                           ),
@@ -101,7 +102,7 @@ class _MainViewState extends State<MainView> {
                           label: 'Category'),
                       BottomNavigationBarItem(
                           icon: ImageIcon(
-                            AssetImage("assets/navbar_icons/shopping-cart.png"),
+                            AssetImage("assets/images/shopping-cart.png"),
                             color: Colors.white,
                             size: 26,
                           ),
@@ -114,7 +115,7 @@ class _MainViewState extends State<MainView> {
                           label: 'Cart'),
                       BottomNavigationBarItem(
                           icon: ImageIcon(
-                            AssetImage("assets/navbar_icons/user.png"),
+                            AssetImage("assets/images/user.png"),
                             color: Colors.white,
                             size: 26,
                           ),
