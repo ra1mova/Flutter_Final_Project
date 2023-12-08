@@ -106,9 +106,7 @@ class _HomeViewState extends State<HomeView> {
                         )),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
               ],
             ),
           ),
