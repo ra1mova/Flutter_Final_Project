@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/images.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../blocs/product/product_bloc.dart';
+import '../../../widgets/product_card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -110,7 +115,56 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
           ),
-          Container()
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: BlocBuilder<ProductBloc, ProductState>(
+                    builder: (context, state) {
+                  if (state is ProductLoaded && state.products.isEmpty) {
+                    return const Text("Products not found!");
+                  }
+
+                  if (state is ProductError && state.products.isEmpty) {
+                    const Text("Try again!");
+                  }
+
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      context.read<ProductBloc>().add(const GetProducts());
+                    },
+                    child: GridView.builder(
+                      itemCount: state.products.length +
+                          ((state is ProductLoading) ? 10 : 0),
+                      controller: scrollController,
+                      padding: EdgeInsets.only(
+                          top: 18,
+                          left: 20,
+                          right: 20,
+                          bottom: (80 + MediaQuery.of(context).padding.bottom)),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.55,
+                        crossAxisSpacing: 6,
+                      ),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (state.products.length > index) {
+                          return ProductCard(
+                            product: state.products[index],
+                          );
+                        }
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey.shade100,
+                          highlightColor: Colors.white,
+                          child: const ProductCard(),
+                        );
+                      },
+                    ),
+                  );
+                })),
+          )
         ],
       ),
     );
