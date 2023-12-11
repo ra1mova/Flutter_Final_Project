@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/data/repositories/category_repository_impl.dart';
 import 'package:flutter_application_1/data/repositories/product_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/router/app_router.dart';
 import 'domain/usecases/product/get_product_usecase.dart';
 import 'domain/usecases/product/get_remote_category_usecase.dart';
 import 'presentation/blocs/category/category_bloc.dart';
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
+        initialRoute: AppRouter.home,
+        onGenerateRoute: AppRouter.onGenerateRoute,
         home: const MainView(),
       ),
     );
