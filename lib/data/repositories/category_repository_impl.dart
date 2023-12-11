@@ -11,15 +11,15 @@ class CategoryRepositoryImpl implements CategoryRepository {
       final products = [
         const Category(
           id: '1',
-          name: "Vegatables",
+          name: "Vegetables",
           image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIKiPrivnUCpHOdXTvmdr96DKtybagFpwDSA&usqp=CAU',
         ),
         const Category(
-          id: '1',
-          name: "Vegatables",
+          id: '2',
+          name: "Fruits",
           image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlTxho4ctAuGF119v5lR4Qe1Xfj7l13gg7Cw&usqp=CAU',
         ),
       ];
       return Right(products);

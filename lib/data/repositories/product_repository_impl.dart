@@ -23,7 +23,7 @@ class ProductRepositoryImpl implements ProductRepository {
           categories: const [
             Category(
                 id: '1',
-                name: "Vegatables",
+                name: "Vegetables",
                 image:
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU'),
           ],
@@ -43,7 +43,7 @@ class ProductRepositoryImpl implements ProductRepository {
           categories: const [
             Category(
                 id: '1',
-                name: "Vegatables",
+                name: "Vegetables",
                 image:
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU'),
           ],
@@ -63,7 +63,7 @@ class ProductRepositoryImpl implements ProductRepository {
           categories: const [
             Category(
                 id: '1',
-                name: "Vegatables",
+                name: "Vegetables",
                 image:
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU'),
           ],

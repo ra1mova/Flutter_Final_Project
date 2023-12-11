@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/repositories/category_repository_impl.dart';
 import 'package:flutter_application_1/data/repositories/product_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'domain/usecases/product/get_product_usecase.dart';
+import 'domain/usecases/product/get_remote_category_usecase.dart';
+import 'presentation/blocs/category/category_bloc.dart';
 import 'presentation/blocs/home/navbar_cubit.dart';
 import 'presentation/blocs/product/product_bloc.dart';
 import 'presentation/views/main/main_view.dart';
@@ -27,6 +30,13 @@ class MyApp extends StatelessWidget {
               ProductRepositoryImpl(),
             ),
           )..add(const GetProducts()),
+        ),
+        BlocProvider(
+          create: (context) => CategoryBloc(
+            GetCategoryUseCase(
+              CategoryRepositoryImpl(),
+            ),
+          )..add(const GetCategories()),
         ),
       ],
       child: MaterialApp(

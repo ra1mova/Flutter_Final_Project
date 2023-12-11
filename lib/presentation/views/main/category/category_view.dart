@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../domain/entities/category/category.dart';
+import '../../../blocs/category/category_bloc.dart';
 import '../../../widgets/category_card.dart';
 
 class CategoryView extends StatefulWidget {
@@ -66,20 +67,23 @@ class _CategoryViewState extends State<CategoryView> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.only(
-                    top: 14,
-                    bottom: (80 + MediaQuery.of(context).padding.bottom)),
-                itemBuilder: (context, index) => const CategoryCard(
-                  category: Category(
-                    id: '1',
-                    name: "Vegatables",
-                    image:
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgkuqFkugKWYxz8i_8IaZNlccsVBJKkAIz4g&usqp=CAU',
-                  ),
-                ),
+              child: BlocBuilder<CategoryBloc, CategoryState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: (state is CategoryLoading)
+                        ? 10
+                        : state.categories.length,
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(
+                        top: 14,
+                        bottom: (80 + MediaQuery.of(context).padding.bottom)),
+                    itemBuilder: (context, index) => (state is CategoryLoading)
+                        ? const CategoryCard()
+                        : CategoryCard(
+                            category: state.categories[index],
+                          ),
+                  );
+                },
               ),
             ),
           ],
