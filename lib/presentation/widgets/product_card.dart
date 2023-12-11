@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../core/router/app_router.dart';
 import '../../domain/entities/product/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -31,7 +32,12 @@ class ProductCard extends StatelessWidget {
 
   Widget buildBody(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (product != null) {
+          Navigator.of(context)
+              .pushNamed(AppRouter.productDetails, arguments: product);
+        }
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
