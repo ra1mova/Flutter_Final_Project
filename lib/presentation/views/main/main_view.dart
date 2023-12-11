@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '../../blocs/home/navbar_cubit.dart';
+import 'category/category_view.dart';
 import 'home/home_view.dart';
 
 class MainView extends StatefulWidget {
@@ -27,7 +28,7 @@ class _MainViewState extends State<MainView> {
                   controller: context.read<NavbarCubit>().controller,
                   children: <Widget>[
                     const HomeView(),
-                    Container(),
+                    const CategoryView(),
                     Container(),
                     Container(),
                   ],
