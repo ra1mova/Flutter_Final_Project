@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
                     ),
                     Text(
-                      "Ala-Too store",
+                      "Ala-Too market",
                       style: TextStyle(
                           fontWeight: FontWeight.normal, fontSize: 22),
                     ),
