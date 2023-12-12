@@ -1,13 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-
-import '../../../core/constant/images.dart';
-import '../../../core/error/failures.dart';
-import '../../../core/router/app_router.dart';
-import '../../../domain/usecases/user/sign_up_usecase.dart';
-import '../../blocs/cart/cart_bloc.dart';
-import '../../blocs/user/user_bloc.dart';
 import '../../widgets/input_form_button.dart';
 import '../../widgets/input_text_form_field.dart';
 
@@ -29,28 +20,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, state) {
-        EasyLoading.dismiss();
-        if (state is UserLoading) {
-          EasyLoading.show(status: 'Loading...');
-        } else if (state is UserLogged) {
-          context.read<CartBloc>().add(const GetCart());
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            AppRouter.home,
-            ModalRoute.withName(''),
-          );
-        } else if (state is UserLoggedFail) {
-          if (state.failure is CredentialFailure) {
-            EasyLoading.showError("Username/Password Wrong!");
-          } else {
-            EasyLoading.showError("Error");
-          }
-        }
-      },
-      child: Scaffold(
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -62,12 +34,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  SizedBox(
-                      height: 80,
-                      child: Image.asset(
-                        kAppLogo,
-                        color: Colors.black,
-                      )),
+                  // SizedBox(
+                  //     height: 80,
+                  //     child: Image.asset(
+                  //       kAppLogo,
+                  //       color: Colors.black,
+                  //     )),
                   const SizedBox(
                     height: 20,
                   ),
@@ -148,44 +120,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     onFieldSubmitted: (_) {
-                      if (_formKey.currentState!.validate()) {
-                        if (passwordController.text !=
-                            confirmPasswordController.text) {
-                        } else {
-                          context.read<UserBloc>().add(SignUpUser(SignUpParams(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
-                            email: emailController.text,
-                            password: passwordController.text,
-                          )));
-                        }
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  const SizedBox(height: 40),
                   InputFormButton(
                     color: Colors.black87,
                     onClick: () {
-                      if (_formKey.currentState!.validate()) {
-                        if (passwordController.text !=
-                            confirmPasswordController.text) {
-                        } else {
-                          context.read<UserBloc>().add(SignUpUser(SignUpParams(
-                                firstName: firstNameController.text,
-                                lastName: lastNameController.text,
-                                email: emailController.text,
-                                password: passwordController.text,
-                              )));
-                        }
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
                     titleText: 'Sign Up',
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   InputFormButton(
                     color: Colors.black87,
                     onClick: () {
@@ -193,15 +139,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     titleText: 'Back',
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ),
           ),
         ),
-      )),
+      ),
     );
   }
 }

@@ -6,6 +6,7 @@ import '../../blocs/home/navbar_cubit.dart';
 import 'cart/cart_view.dart';
 import 'category/category_view.dart';
 import 'home/home_view.dart';
+import 'other/other_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -27,11 +28,11 @@ class _MainViewState extends State<MainView> {
                 child: PageView(
                   physics: const NeverScrollableScrollPhysics(),
                   controller: context.read<NavbarCubit>().controller,
-                  children: <Widget>[
-                    const HomeView(),
-                    const CategoryView(),
-                    const CartView(),
-                    Container(),
+                  children: const <Widget>[
+                    HomeView(),
+                    CategoryView(),
+                    CartView(),
+                    OtherView(),
                   ],
                 ),
               );
