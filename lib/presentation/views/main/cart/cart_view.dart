@@ -25,9 +25,6 @@ class _CartViewState extends State<CartView> {
           children: [
             Column(
               children: [
-                // SizedBox(
-                //   height: (MediaQuery.of(context).padding.top + 10),
-                // ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
