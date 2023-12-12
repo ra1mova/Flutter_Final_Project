@@ -21,14 +21,81 @@ class DeliveryInfoView extends StatefulWidget {
 class _DeliveryInfoViewState extends State<DeliveryInfoView> {
   @override
   Widget build(BuildContext context) {
-    _showLoadingOrErrorSnackbar(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Delivery Details"),
+    return BlocListener<DeliveryInfoActionCubit, DeliveryInfoActionState>(
+      listener: (context, state) {
+        EasyLoading.dismiss();
+        if (state is DeliveryInfoActionLoading) {
+          EasyLoading.show(status: 'Loading...');
+        } else if (state is DeliveryInfoSelectActionSuccess) {
+          context
+              .read<DeliveryInfoFetchCubit>()
+              .selectDeliveryInfo(state.deliveryInfo);
+        } else if (state is DeliveryInfoActionFail) {
+          EasyLoading.showError("Error");
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Delivery Details"),
+        ),
+        body: BlocBuilder<DeliveryInfoFetchCubit, DeliveryInfoFetchState>(
+          builder: (context, state) {
+            if(state is! DeliveryInfoFetchLoading && state.deliveryInformation.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(kEmptyDeliveryInfo),
+                  const Text("Delivery information are Empty!"),
+                  SizedBox(
+                    height:
+                    MediaQuery.of(context).size.height * 0.1,
+                  )
+                ],
+              );
+            }
+            return ListView.builder(
+              itemCount: (state is DeliveryInfoFetchLoading &&
+                      state.deliveryInformation.isEmpty)
+                  ? 5
+                  : state.deliveryInformation.length,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              itemBuilder: (context, index) =>
+                  (state is DeliveryInfoFetchLoading &&
+                          state.deliveryInformation.isEmpty)
+                      ? const DeliveryInfoCard()
+                      : DeliveryInfoCard(
+                          deliveryInformation: state.deliveryInformation[index],
+                          isSelected: state.deliveryInformation[index] ==
+                              state.selectedDeliveryInformation,
+                        ),
+            );
+          },
+        ),
+        floatingActionButton: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  builder: (BuildContext context) {
+                    return const DeliveryInfoForm();
+                  },
+                );
+              },
+              tooltip: 'Increment',
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
       ),
-      body: _buildDeliveryInfoList(context),
-      floatingActionButton: _buildAddButton(context),
     );
   }
 }
